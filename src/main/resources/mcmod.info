@@ -1,0 +1,10 @@
+[
+{
+  "modid": "creepernuggets",
+  "name": "Creeper Nuggets",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "authorList": ["VpzomTrrfrt"],
+  "credits": "TevaVejo on CurseForge for the idea"
+}
+]
