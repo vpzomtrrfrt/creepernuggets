@@ -1,5 +1,6 @@
 package vpzomtrrfrt.creepernuggets
 
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{EnumAction, Item, ItemStack}
@@ -11,16 +12,19 @@ import scala.util.Random
 object ItemCreeperNugget extends Item {
   setRegistryName("creeperNugget")
   setUnlocalizedName("creeperNugget")
+  setCreativeTab(CreativeTabs.FOOD)
 
   override def getItemUseAction(p_getItemUseAction_1_ : ItemStack): EnumAction = EnumAction.EAT
 
-  override def getMaxItemUseDuration(p_getMaxItemUseDuration_1_ : ItemStack): Int = 16
+  override def getMaxItemUseDuration(p_getMaxItemUseDuration_1_ : ItemStack): Int = 32
 
   override def onItemUseFinish(stack : ItemStack, p_onItemUseFinish_2_ : World, p_onItemUseFinish_3_ : EntityLivingBase): ItemStack = {
-    stack.stackSize -= 1
     if(!p_onItemUseFinish_2_.isRemote) {
       p_onItemUseFinish_3_ match {
         case player: EntityPlayer =>
+          if(!player.capabilities.isCreativeMode) {
+            stack.stackSize -= 1
+          }
           val stats = player.getFoodStats
           stats.addStats(new Random().nextInt(4) + 2, 0)
           if (!stats.needFood) {
