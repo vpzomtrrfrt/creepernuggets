@@ -18,12 +18,12 @@ object ItemCreeperNugget extends Item {
 
   override def getMaxItemUseDuration(p_getMaxItemUseDuration_1_ : ItemStack): Int = 32
 
-  override def onItemUseFinish(stack : ItemStack, p_onItemUseFinish_2_ : World, p_onItemUseFinish_3_ : EntityLivingBase): ItemStack = {
-    if(!p_onItemUseFinish_2_.isRemote) {
+  override def onItemUseFinish(stack: ItemStack, p_onItemUseFinish_2_ : World, p_onItemUseFinish_3_ : EntityLivingBase): ItemStack = {
+    if (!p_onItemUseFinish_2_.isRemote) {
       p_onItemUseFinish_3_ match {
         case player: EntityPlayer =>
-          if(!player.capabilities.isCreativeMode) {
-            stack.stackSize -= 1
+          if (!player.capabilities.isCreativeMode) {
+            stack.func_190918_g(1)
           }
           val stats = player.getFoodStats
           stats.addStats(new Random().nextInt(4) + 2, 0)
@@ -33,15 +33,11 @@ object ItemCreeperNugget extends Item {
         case _ =>
       }
     }
-    if (stack.stackSize > 0) {
-      stack
-    } else {
-      null
-    }
+    stack
   }
 
-  override def onItemRightClick(p_onItemRightClick_1_ : ItemStack, p_onItemRightClick_2_ : World, player : EntityPlayer, hand : EnumHand): ActionResult[ItemStack] = {
+  override def onItemRightClick(world : World, player : EntityPlayer, hand : EnumHand): ActionResult[ItemStack] = {
     player.setActiveHand(hand)
-    new ActionResult[ItemStack](EnumActionResult.SUCCESS, p_onItemRightClick_1_)
+    new ActionResult[ItemStack](EnumActionResult.SUCCESS, player.getHeldItem(hand))
   }
 }
