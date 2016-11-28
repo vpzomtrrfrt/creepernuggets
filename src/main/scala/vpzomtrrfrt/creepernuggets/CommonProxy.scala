@@ -13,6 +13,6 @@ class CommonProxy {
   }
 
   def registerItem(item : Item): Unit = {
-    GameRegistry.register(item)
+    GameRegistry.registerItem(item, item.getRegistryName)
   }
 }

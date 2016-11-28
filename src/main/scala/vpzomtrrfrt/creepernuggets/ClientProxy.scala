@@ -1,6 +1,6 @@
 package vpzomtrrfrt.creepernuggets
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.item.Item
 
 import scala.collection.mutable.ArrayBuffer
@@ -15,7 +15,7 @@ class ClientProxy extends CommonProxy {
   override def init(): Unit = {
     for(item <- items) {
       val loc = item.getRegistryName
-      Minecraft.getMinecraft.getRenderItem.getItemModelMesher.register(item, 0, new ModelResourceLocation(loc.getResourceDomain+":"+loc.getResourcePath, "inventory"))
+      Minecraft.getMinecraft.getRenderItem.getItemModelMesher.register(item, 0, new ModelResourceLocation(loc, "inventory"))
     }
   }
 }

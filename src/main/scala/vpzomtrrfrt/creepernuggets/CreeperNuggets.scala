@@ -35,8 +35,8 @@ object CreeperNuggets {
 
   @SubscribeEvent
   def onDrops(event: LivingDropsEvent): Unit = {
-    if(event.getEntity.isInstanceOf[EntityCreeper]) {
-      event.getDrops.add(new EntityItem(event.getEntity.getEntityWorld, event.getEntity.posX, event.getEntity.posY, event.getEntity.posZ, new ItemStack(ItemCreeperNugget, new Random().nextInt(4))))
+    if(event.entity.isInstanceOf[EntityCreeper]) {
+      event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ, new ItemStack(ItemCreeperNugget, new Random().nextInt(4))))
     }
   }
 }
