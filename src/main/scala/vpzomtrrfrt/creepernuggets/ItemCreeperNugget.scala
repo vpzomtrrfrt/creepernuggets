@@ -23,7 +23,7 @@ object ItemCreeperNugget extends Item {
       p_onItemUseFinish_3_ match {
         case player: EntityPlayer =>
           if (!player.capabilities.isCreativeMode) {
-            stack.func_190918_g(1)
+            stack.shrink(1)
           }
           val stats = player.getFoodStats
           stats.addStats(new Random().nextInt(4) + 2, 0)
