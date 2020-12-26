@@ -17,7 +17,7 @@ apply plugin: 'com.matthewprenger.cursegradle'
 
 version = "1.0"
 group = "vpzomtrrfrt.creepernuggets" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "creepernuggets-1.12"
+archivesBaseName = "creepernuggets-1.13-forge"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
