@@ -1,5 +1,6 @@
 modLoader="javafml"
 loaderVersion="[25,)"
+license="MIT"
 
 [[mods]]
 modId="creepernuggets"
