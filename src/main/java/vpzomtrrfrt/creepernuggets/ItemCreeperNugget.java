@@ -1,12 +1,13 @@
 package vpzomtrrfrt.creepernuggets;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.FoodStats;
+import net.minecraft.util.Hand;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class ItemCreeperNugget extends Item {
@@ -19,8 +20,8 @@ public class ItemCreeperNugget extends Item {
     }
 
     @Override
-    public EnumAction getUseAction(ItemStack stack) {
-        return EnumAction.EAT;
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.EAT;
     }
 
     @Override
@@ -29,16 +30,16 @@ public class ItemCreeperNugget extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
         if(!worldIn.isRemote) {
-            if(entityLiving instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) entityLiving;
+            if(entityLiving instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) entityLiving;
                 if(!player.isCreative()) stack.shrink(1);
 
                 FoodStats stats = player.getFoodStats();
                 stats.addStats(worldIn.getRandom().nextInt(4) + 2, 0);
                 if(!stats.needFood()) {
-                    worldIn.createExplosion(null, player.posX, player.posY, player.posZ, 2, true);
+                    worldIn.createExplosion(null, player.posX, player.posY, player.posZ, 2, Explosion.Mode.DESTROY);
                 }
             }
         }
@@ -47,14 +48,14 @@ public class ItemCreeperNugget extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if(playerIn.canEat(false)) {
             playerIn.setActiveHand(handIn);
-            return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+            return ActionResult.newResult(ActionResultType.SUCCESS, stack);
         }
         else {
-            return ActionResult.newResult(EnumActionResult.FAIL, stack);
+            return ActionResult.newResult(ActionResultType.FAIL, stack);
         }
     }
 }

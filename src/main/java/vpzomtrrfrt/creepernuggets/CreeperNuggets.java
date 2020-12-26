@@ -1,7 +1,7 @@
 package vpzomtrrfrt.creepernuggets;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,8 +30,8 @@ public class CreeperNuggets {
 
     @SubscribeEvent
     public void onDrops(LivingDropsEvent event) {
-        if (event.getEntity() instanceof EntityCreeper) {
-            event.getDrops().add(new EntityItem(event.getEntity().getEntityWorld(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(ItemCreeperNugget.INSTANCE, new Random().nextInt(4))));
+        if (event.getEntity() instanceof CreeperEntity) {
+            event.getDrops().add(new ItemEntity(event.getEntity().getEntityWorld(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(ItemCreeperNugget.INSTANCE, new Random().nextInt(4))));
         }
     }
 }
