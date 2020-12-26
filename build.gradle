@@ -17,7 +17,7 @@ apply plugin: 'com.matthewprenger.cursegradle'
 
 version = "1.0"
 group = "vpzomtrrfrt.creepernuggets" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "creepernuggets-1.14-forge"
+archivesBaseName = "creepernuggets-1.15-forge"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
@@ -25,7 +25,7 @@ compileJava {
 }
 
 minecraft {
-    mappings channel: "snapshot", version: "20190719-1.14.3"
+    mappings channel: "snapshot", version: "20200514-1.15.1"
 
     runs {
         client {
@@ -63,7 +63,7 @@ minecraft {
 }
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:1.14.4-28.2.23'
+	minecraft 'net.minecraftforge:forge:1.15.2-31.2.47'
 }
 
 curseforge {

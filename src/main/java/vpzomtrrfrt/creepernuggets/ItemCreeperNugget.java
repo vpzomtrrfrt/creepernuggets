@@ -39,7 +39,7 @@ public class ItemCreeperNugget extends Item {
                 FoodStats stats = player.getFoodStats();
                 stats.addStats(worldIn.getRandom().nextInt(4) + 2, 0);
                 if(!stats.needFood()) {
-                    worldIn.createExplosion(null, player.posX, player.posY, player.posZ, 2, Explosion.Mode.DESTROY);
+                    worldIn.createExplosion(null, player.getPosX(), player.getPosY(), player.getPosZ(), 2, Explosion.Mode.DESTROY);
                 }
             }
         }
@@ -52,10 +52,10 @@ public class ItemCreeperNugget extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if(playerIn.canEat(false)) {
             playerIn.setActiveHand(handIn);
-            return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+            return ActionResult.resultSuccess(stack);
         }
         else {
-            return ActionResult.newResult(ActionResultType.FAIL, stack);
+            return ActionResult.resultFail(stack);
         }
     }
 }

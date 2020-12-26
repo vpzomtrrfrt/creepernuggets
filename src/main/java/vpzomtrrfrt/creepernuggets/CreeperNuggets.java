@@ -31,7 +31,7 @@ public class CreeperNuggets {
     @SubscribeEvent
     public void onDrops(LivingDropsEvent event) {
         if (event.getEntity() instanceof CreeperEntity) {
-            event.getDrops().add(new ItemEntity(event.getEntity().getEntityWorld(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(ItemCreeperNugget.INSTANCE, new Random().nextInt(4))));
+            event.getDrops().add(new ItemEntity(event.getEntity().getEntityWorld(), event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ(), new ItemStack(ItemCreeperNugget.INSTANCE, new Random().nextInt(4))));
         }
     }
 }
