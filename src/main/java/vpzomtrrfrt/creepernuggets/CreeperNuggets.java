@@ -18,17 +18,16 @@ public class CreeperNuggets {
     public static final String MODID = "creepernuggets";
 
     public CreeperNuggets() {
-        MinecraftForge.EVENT_BUS.register(this);
-        FMLJavaModLoadingContext.get().getModEventBus().register(this);
+		FMLJavaModLoadingContext.get().getModEventBus().register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::onDrops);
     }
 
-    @SubscribeEvent
+	@SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> evt) {
         System.out.println("registerItems called");
         evt.getRegistry().registerAll(ItemCreeperNugget.INSTANCE);
     }
 
-    @SubscribeEvent
     public void onDrops(LivingDropsEvent event) {
         if (event.getEntity() instanceof CreeperEntity) {
             event.getDrops().add(new ItemEntity(event.getEntity().getEntityWorld(), event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ(), new ItemStack(ItemCreeperNugget.INSTANCE, new Random().nextInt(4))));
