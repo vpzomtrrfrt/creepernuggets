@@ -1,75 +1,28 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url = "https://files.minecraftforge.net/maven" }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
-    }
-}
 plugins {
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
+	id 'fabric-loom' version '0.5-SNAPSHOT'
 }
-
-apply plugin: 'net.minecraftforge.gradle'
-
-apply plugin: 'com.matthewprenger.cursegradle'
 
 version = "1.0"
-group = "vpzomtrrfrt.creepernuggets" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "creepernuggets-1.16-forge"
-
-sourceCompatibility = targetCompatibility = "1.8"
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
-}
-
-minecraft {
-    mappings channel: "snapshot", version: "20201028-1.16.3"
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
+archivesBaseName = "creepernuggets-1.16-fabric"
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:1.16.4-35.1.13'
+	minecraft "com.mojang:minecraft:1.16.5"
+
+	mappings "net.fabricmc:yarn:1.16.5+build.10:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.11.6"
+            
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.1+1.16"
 }
 
-curseforge {
-    apiKey = System.env.CURSE_API_KEY != null ? "$System.env.CURSE_API_KEY": ''
-    project {
-        id = '254242'
-        releaseType = 'beta'
-    }
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 }

@@ -1,36 +1,31 @@
 package vpzomtrrfrt.creepernuggets;
 
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.minecraft.entity.EntityType;
+import net.minecraft.loot.UniformLootTableRange;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-import java.util.Random;
-
-@Mod(CreeperNuggets.MODID)
-public class CreeperNuggets {
+public class CreeperNuggets implements ModInitializer {
     public static final String MODID = "creepernuggets";
 
-    public CreeperNuggets() {
-		FMLJavaModLoadingContext.get().getModEventBus().register(this);
-		MinecraftForge.EVENT_BUS.addListener(this::onDrops);
-    }
+    private static final Identifier CREEPER_LOOT_TABLE = EntityType.CREEPER.getLootTableId();
 
-	@SubscribeEvent
-    public void registerItems(RegistryEvent.Register<Item> evt) {
-        System.out.println("registerItems called");
-        evt.getRegistry().registerAll(ItemCreeperNugget.INSTANCE);
-    }
+    @Override
+    public void onInitialize() {
+        Registry.register(Registry.ITEM, new Identifier(MODID, "creeper_nugget"), ItemCreeperNugget.INSTANCE);
 
-    public void onDrops(LivingDropsEvent event) {
-        if (event.getEntity() instanceof CreeperEntity) {
-            event.getDrops().add(new ItemEntity(event.getEntity().getEntityWorld(), event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ(), new ItemStack(ItemCreeperNugget.INSTANCE, new Random().nextInt(4))));
-        }
+        LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
+            if(CREEPER_LOOT_TABLE.equals(id)) {
+                supplier.pool(
+                        FabricLootPoolBuilder.builder()
+                                .rolls(UniformLootTableRange.between(0, 3))
+                                .with(ItemEntry.builder(ItemCreeperNugget.INSTANCE))
+                );
+            }
+        });
     }
 }

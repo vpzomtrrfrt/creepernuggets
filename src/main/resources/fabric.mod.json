@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "creepernuggets",
+	"version": "${version}",
+
+	"name": "Creeper Nuggets",
+	"authors": ["vpzom"],
+
+	"license": "MIT",
+
+	"environment": "*",
+	"entrypoints": {
+		"main": ["vpzomtrrfrt.creepernuggets.CreeperNuggets"]
+	},
+
+	"depends": {
+		"fabric": "*",
+		"minecraft": "1.16.x"
+	}
+}
